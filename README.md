@@ -1,2 +1,2 @@
-# mai-backend
+# mai
 mai后端
