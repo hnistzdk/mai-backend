@@ -1,0 +1,31 @@
+# 端口
+server:
+  port: 5000
+
+spring:
+  zipkin:
+    base-url:
+  sleuth:
+    sampler:
+      probability: 1
+  security:
+    user:
+      name: admin
+      password:
+  application:
+    # 应用名称
+    name: mai-monitor-service
+  cloud:
+    #nacos
+    nacos:
+      username: nacos
+      password:
+      discovery:
+      # 服务注册地址
+        server-addr:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

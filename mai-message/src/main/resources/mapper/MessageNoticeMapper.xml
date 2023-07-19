@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdk.mai.message.mapper.MessageNoticeMapper">
+
+
+    <update id="allRead">
+        update mai_message_notice
+        set read_flag = true
+        where notice_type = #{noticeType} and receive_id = #{userId} and del_flag = false
+        and message_id in (select message_id from mai_message_info where message_type = #{messageType} and del_flag = false)
+    </update>
+
+    <select id="list" resultType="com.zdk.mai.common.model.message.MessageNoticeModel">
+        select mn.* from mai_message_notice as mn
+        left join mai_message_info as mi
+        on mn.message_id = mi.message_id
+        where mi.message_type = #{messageType}
+          and mn.notice_type = #{noticeType} and mn.receive_id = #{receiveId}
+            and mn.del_flag = false and mi.del_flag = false
+                order by mn.update_time desc
+    </select>
+    <select id="getNotReadMessageCount" resultType="java.lang.Integer">
+        select count(*) from mai_message_notice as mn
+            left join mai_message_info as mi
+                on mn.message_id = mi.message_id
+                    where mi.message_type = #{messageType} and mn.notice_type = #{noticeType}
+                      and mn.receive_id = #{receiveId} and mn.read_flag = false
+                        and mn.del_flag = false and mi.del_flag = false
+    </select>
+</mapper>

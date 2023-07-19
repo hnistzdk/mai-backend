@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zdk</groupId>
+    <artifactId>mai</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>mai-common</module>
+        <module>mai-gateway</module>
+        <module>mai-auth</module>
+        <module>mai-api</module>
+        <module>mai-common/mai-common-swagger</module>
+        <module>mai-search</module>
+        <module>mai-message</module>
+        <module>mai-comment</module>
+        <module>mai-post</module>
+        <module>mai-user</module>
+        <module>mai-common/mai-common-model</module>
+        <module>mai-file</module>
+        <module>mai-common/mai-common-es</module>
+        <module>mai-common/mai-common-rabbit</module>
+        <module>mai-monitor</module>
+    </modules>
+
+    <!-- 这是个总的父工程 -->
+    <packaging>pom</packaging>
+    <!-- 统一 jar 包管理 -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <boot.version>2.4.13</boot.version>
+        <cloud.version>2020.0.5</cloud.version>
+        <cloud-alibaba.version>2021.1</cloud-alibaba.version>
+        <junit.version>4.12</junit.version>
+        <log4j.version>1.2.17</log4j.version>
+        <lombok.version>1.18.18</lombok.version>
+        <mysql.version>8.0.25</mysql.version>
+        <mybatis.plus.boot.version>3.4.2</mybatis.plus.boot.version>
+        <druid.spring.boot.version>1.2.6</druid.spring.boot.version>
+        <hutool.version>5.7.22</hutool.version>
+        <hystrix.version>2.2.10.RELEASE</hystrix.version>
+        <zipkin.version>2.2.8.RELEASE</zipkin.version>
+        <pagehelper.boot.version>1.4.5</pagehelper.boot.version>
+        <jwt.version>0.9.1</jwt.version>
+        <mai.version>1.0-SNAPSHOT</mai.version>
+        <dynamic-ds.version>3.5.2</dynamic-ds.version>
+        <swagger.fox.version>3.0.0</swagger.fox.version>
+        <swagger.core.version>1.6.2</swagger.core.version>
+        <feign-httpclient.version>11.8</feign-httpclient.version>
+        <commons-pool2.version>2.11.1</commons-pool2.version>
+        <pagehelper.version>5.3.1</pagehelper.version>
+        <easy-es.version>1.1.1</easy-es.version>
+        <es.version>7.14.0</es.version>
+        <transmittable-thread-local.version>2.13.2</transmittable-thread-local.version>
+        <jsoup.version>1.14.3</jsoup.version>
+        <redisson.version>3.16.1</redisson.version>
+    </properties>
+
+    <!-- 子模块继承之后，提供作用：锁定版本了module不用groupId和version -->
+    <!-- 只是声明依赖，不引入 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- Spring Boot依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.elasticsearch.client</groupId>
+                        <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.elasticsearch</groupId>
+                        <artifactId>elasticsearch</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <!-- Spring Cloud微服务 -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+
+            <!-- 包含了sleuth+zipkin-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-zipkin</artifactId>
+                <version>${zipkin.version}</version>
+            </dependency>
+
+            <!-- Spring Cloud Alibaba微服务 -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--MySQL-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+
+            <!--druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.spring.boot.version}</version>
+            </dependency>
+
+            <!-- mybatis-plus -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis.plus.boot.version}</version>
+            </dependency>
+
+            <!-- 单测 -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <!-- 日志 -->
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>${log4j.version}</version>
+            </dependency>
+
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- hutool工具 -->
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- pagehelper 分页插件 -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper-spring-boot-starter</artifactId>
+                <version>${pagehelper.boot.version}</version>
+            </dependency>
+
+            <!--        集成JWT-->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jwt.version}</version>
+            </dependency>
+
+            <!--   动态数据源-->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+                <version>${dynamic-ds.version}</version>
+            </dependency>
+
+            <!-- 分布式锁 -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson-spring-boot-starter</artifactId>
+                <version>${redisson.version}</version>
+            </dependency>
+
+            <!-- Swagger 依赖配置 -->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger.core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-annotations</artifactId>
+                <version>${swagger.core.version}</version>
+            </dependency>
+
+            <!-- feign与httpclient客户端整合 -->
+            <dependency>
+                <groupId>io.github.openfeign</groupId>
+                <artifactId>feign-httpclient</artifactId>
+                <version>${feign-httpclient.version}</version>
+            </dependency>
+
+<!--            Lettuce/Jedis连接池所需-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-pool2</artifactId>
+                <version>${commons-pool2.version}</version>
+            </dependency>
+
+            <!-- 单独的pagehelper -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cn.easy-es</groupId>
+                <artifactId>easy-es-boot-starter</artifactId>
+                <version>${easy-es.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.elasticsearch.client</groupId>
+                        <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.elasticsearch</groupId>
+                        <artifactId>elasticsearch</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
+            <dependency>
+                <groupId>org.elasticsearch.client</groupId>
+                <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                <version>${es.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.elasticsearch</groupId>
+                <artifactId>elasticsearch</artifactId>
+                <version>${es.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>transmittable-thread-local</artifactId>
+                <version>${transmittable-thread-local.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.jsoup</groupId>
+                <artifactId>jsoup</artifactId>
+                <version>${jsoup.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-api-user</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-api-comment</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-api-message</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-api-post</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-api-search</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-api-file</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-model</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-core</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-datasource</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-log</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-redis</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-es</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-rabbit</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-security</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.zdk</groupId>
+                <artifactId>mai-common-swagger</artifactId>
+                <version>${mai.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.1</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+</project>

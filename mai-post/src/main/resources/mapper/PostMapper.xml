@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdk.mai.post.mapper.PostMapper">
+
+    <select id="getUserPostPv" resultType="java.lang.Long" parameterType="Long">
+        SELECT SUM(pv) FROM mai_post WHERE author_id = #{userId} and del_flag = 0
+    </select>
+    <select id="likeList" resultType="com.zdk.mai.common.model.post.PostModel">
+
+        select p.*
+        from mai_post as p left join mai_post_like as pl
+        on pl.post_id = p.post_id and pl.del_flag = 0 and p.del_flag = 0 and pl.state = 1
+        where pl.create_by = #{userId}
+
+    </select>
+
+
+</mapper>

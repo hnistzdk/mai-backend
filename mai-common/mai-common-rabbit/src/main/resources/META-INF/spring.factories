@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zdk.mai.common.rabbit.config.RabbitQueueConfig, \
+com.zdk.mai.common.rabbit.config.RabbitConfig, \
+com.zdk.mai.common.rabbit.config.MessageCallback
+

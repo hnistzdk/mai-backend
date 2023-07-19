@@ -1,0 +1,17 @@
+# 基础镜像
+FROM  openjdk:8-jre
+# author
+MAINTAINER mai
+
+# 挂载目录
+VOLUME /home/mai
+# 创建目录
+RUN mkdir -p /home/mai
+# 指定路径
+WORKDIR /home/mai
+# 复制jar文件到路径
+COPY ./jar/mai-post.jar /home/mai/mai-post.jar
+# 参数
+ENV JAVA_OPTS="-Xms128m -Xmx256m"
+# 启动贴子服务
+ENTRYPOINT java ${JAVA_OPTS} -jar mai-post.jar

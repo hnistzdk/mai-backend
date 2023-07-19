@@ -1,0 +1,12 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zdk.mai.common.security.handler.GlobalExceptionHandler,\
+com.zdk.mai.common.security.service.TokenService, \
+com.zdk.mai.common.security.config.WebMvcConfig, \
+com.zdk.mai.common.security.config.RedisLuaConfig, \
+com.zdk.mai.common.security.aspect.InnerAuthAspect, \
+com.zdk.mai.common.security.aspect.PreAuthorizeAspect, \
+com.zdk.mai.common.security.aspect.InitRequestArgAspect, \
+com.zdk.mai.common.security.aspect.RateLimiterAspect, \
+com.zdk.mai.common.security.feign.FeignAutoConfiguration, \
+com.zdk.mai.common.security.feign.FeignRequestInterceptor
+

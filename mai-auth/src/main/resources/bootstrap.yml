@@ -1,0 +1,23 @@
+server:
+  port: 9000
+
+spring:
+  application:
+    name: mai-auth-service
+  profiles:
+    active: dev
+
+  cloud:
+    nacos:
+      username: nacos
+      password:
+      discovery:
+        server-addr:
+      config:
+        server-addr:
+        file-extension: yaml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          - application-${spring.profiles.active}-redis.${spring.cloud.nacos.config.file-extension}
+

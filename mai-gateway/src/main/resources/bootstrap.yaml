@@ -1,0 +1,43 @@
+server:
+  port: 9527
+
+spring:
+  application:
+    name: mai-gateway-service
+  profiles:
+    # 环境配置
+    active: dev
+  cloud:
+    nacos:
+      username: nacos
+      password:
+      discovery:
+        # 服务注册地址
+        server-addr:
+      config:
+        # 配置中心地址
+        server-addr:
+        # 配置文件格式
+        file-extension: yaml
+        # 共享配置
+        shared-configs:
+          - application-${spring.profiles.active}.${spring.cloud.nacos.config.file-extension}
+          - application-${spring.profiles.active}-redis.${spring.cloud.nacos.config.file-extension}
+#    sentinel:
+#      # 取消控制台懒加载
+#      eager: true
+#      transport:
+#        # 配置Sentinel dashboard地址
+#        dashboard: localhost:8858
+#        # sentinel的端口 默认是8719 如果被占用会自动从8719开始依次+1扫描
+#        # 直到找到未被占用的端口为止
+#        port: 8719
+#      # sentinel持久化配置
+#      datasource:
+#        ds1:
+#          nacos:
+#            server-addr: design.com:8848
+#            data-id: sentinel-config
+#            group-id: DEFAULT_GROUP
+#            data-type: json
+#            rule-type: flow

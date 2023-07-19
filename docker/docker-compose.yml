@@ -1,0 +1,74 @@
+version : '3.8'
+services:
+  mai-gateway:
+    container_name: mai-gateway
+    build:
+      context: ./mai/gateway
+      dockerfile: dockerfile
+    ports:
+      - "9527:9527"
+
+  mai-auth:
+    container_name: mai-auth
+    build:
+      context: ./mai/auth
+      dockerfile: dockerfile
+    ports:
+      - "9000:9000"
+
+  mai-comment:
+    container_name: mai-comment
+    build:
+      context: ./mai/comment
+      dockerfile: dockerfile
+    ports:
+      - "9100:9100"
+
+  mai-file:
+    container_name: mai-file
+    build:
+      context: ./mai/file
+      dockerfile: dockerfile
+    ports:
+      - "9600:9600"
+
+  mai-message:
+    container_name: mai-message
+    build:
+      context: ./mai/message
+      dockerfile: dockerfile
+    ports:
+      - "9700:9700"
+
+  mai-monitor:
+    container_name: mai-monitor
+    build:
+      context: ./mai/monitor
+      dockerfile: dockerfile
+    ports:
+      - "5000:5000"
+
+  mai-post:
+    container_name: mai-post
+    build:
+      context: ./mai/post
+      dockerfile: dockerfile
+    ports:
+      - "9300:9300"
+
+  mai-search:
+    container_name: mai-search
+    build:
+      context: ./mai/search
+      dockerfile: dockerfile
+    ports:
+      - "9400:9400"
+
+  mai-user:
+    container_name: mai-user
+    build:
+      context: ./mai/user
+      dockerfile: dockerfile
+    ports:
+      - "9500:9500"
+

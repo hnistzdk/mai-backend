@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdk.mai.comment.mapper.CommentLikeMapper">
+
+
+    <select id="getUserCommentLikeCount" resultType="java.lang.Long" parameterType="Long">
+        SELECT COUNT(cl.state)
+        FROM mai_comment as c
+        LEFT JOIN mai_comment_like as cl
+        on cl.comment_id = c.comment_id and c.del_flag = 0
+        WHERE cl.state = 1 and c.create_by = #{userId};
+    </select>
+
+
+</mapper>

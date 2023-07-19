@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.zdk.mai.common.core.utils.SpringContextUtils, \
+com.zdk.mai.common.core.config.AsyncConfiguration  
+
